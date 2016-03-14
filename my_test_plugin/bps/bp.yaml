@@ -12,7 +12,6 @@ node_templates:
           implementation: my_test_plugin.test_plugin_package.tasks.set_hello
 
 outputs:
-    # example output the could be used to simplify assertions by test
     test_output:
         description: an output for the test
         value: { get_attribute: [vm, some_property] }
