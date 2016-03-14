@@ -1,5 +1,0 @@
-plugins:
-  my_test_plugin:
-    executor: central_deployment_agent
-    source: https://github.com/thomas-schneider/cl/archive/master.zip
-    package_name: test_plugin_package
