@@ -1,0 +1,5 @@
+plugins:
+  test-plugin:
+    executor: central_deployment_agent
+    install: false
+    source: test_plugin
