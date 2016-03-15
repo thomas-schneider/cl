@@ -19,4 +19,4 @@ node_templates:
 outputs:
     test_output:
         description: an output for the test
-        value: { get_attribute: [vm, some_property] }
+        value: { get_attribute: [vm, hello] }
