@@ -17,6 +17,6 @@ node_templates:
           implementation: my_test_plugin.plugin.tasks.set_hello
 
 outputs:
-    test_output:
+    hello:
         description: an output for the test
         value: { get_attribute: [vm, hello] }
