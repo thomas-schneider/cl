@@ -1,3 +1,3 @@
 #!/bin/bash
 cd /tmp/
-sudo node simple.js & echo $! > node.pid
+sudo node simple2.js & echo $! > node.pid
