@@ -4,17 +4,16 @@ imports:
   - http://www.getcloudify.org/spec/cloudify/3.4m3/types.yaml
   - http://www.getcloudify.org/spec/openstack-plugin/1.1/plugin.yaml
 
+inputs:
+  image:
+    type: string
+  flavor:
+    type: string
+
 plugins:
   my_test_plugin:
     executor: central_deployment_agent
     source: https://github.com/thomas-schneider/cl/archive/master.zip
-
-inputs:
-  image:
-    type: string
-
-  flavor:
-    type: string
 
 
 node_templates:
