@@ -2,21 +2,58 @@ tosca_definitions_version: cloudify_dsl_1_2
 
 imports:
   - http://www.getcloudify.org/spec/cloudify/3.4m3/types.yaml
+  - http://www.getcloudify.org/spec/openstack-plugin/1.1/plugin.yaml
 
 plugins:
   my_test_plugin:
     executor: central_deployment_agent
     source: https://github.com/thomas-schneider/cl/archive/master.zip
 
+inputs:
+  image:
+    type: string
+
+  flavor:
+    type: string
+
+
 node_templates:
-  vm:
-    type: cloudify.nodes.Root
+
+  simpleapp:
+    type: cloudify.nodes.ApplicationModule
     interfaces:
       cloudify.interfaces.lifecycle:
-        start: 
-          implementation: my_test_plugin.plugin.tasks.set_hello
+        configure: scripts/install-simpleapp.sh
+        start: scripts/run-simpleapp.sh
+    relationships:
+      - type: cloudify.relationships.contained_in
+        target: nodejs
 
-outputs:
-    hello:
-        description: an output for the test
-        value: { get_attribute: [vm, hello] }
+
+  vm_web:
+    type: cloudify.openstack.nodes.Server
+    properties:
+      server:
+        image: { get_input: image }
+        flavor: { get_input: flavor }
+      agent_config:
+        user: 'centos'
+        password: '123123'
+    relationships:
+      - target: web_floating_ip
+        type: cloudify.openstack.server_connected_to_floating_ip
+
+  web_floating_ip:
+    type: cloudify.openstack.nodes.FloatingIP
+
+  nodejs:
+    type: cloudify.nodes.ApplicationServer
+    relationships:
+      - type: cloudify.relationships.contained_in
+        target: vm_web
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create: scripts/install-nodejs.sh
+      my_test_interface:
+        kkill:
+          implementation: my_test_plugin.plugin.tasks.kkill
