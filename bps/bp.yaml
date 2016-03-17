@@ -53,3 +53,4 @@ node_templates:
       my_test_interface:
         print_hosts:
           implementation: my_test_plugin.plugin.tasks.print_hosts
+          executor: central_deployment_agent
