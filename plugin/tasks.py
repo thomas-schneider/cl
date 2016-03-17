@@ -7,7 +7,7 @@ import os
 def set_hello(**kwargs):
     # setting node instance runtime property
     ctx.instance.runtime_properties['hello'] = 'world'
-
+@operation
 def kkill(**kwargs):
 	try:
 		with open('/tmp/node.pid', 'r') as file:
@@ -17,7 +17,7 @@ def kkill(**kwargs):
 	except IOError:
 		ctx.logger.info('node server is not running!')
 
-
+@operation
 def print_hosts(**kwargs):
 	try:
 		ctx.logger.info('cat /etc/hosts to /tmp dir')
