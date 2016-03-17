@@ -23,7 +23,6 @@ node_templates:
     interfaces:
       cloudify.interfaces.lifecycle:
         configure: scripts/install-simpleapp.sh
-        start: scripts/run-simpleapp.sh
     relationships:
       - type: cloudify.relationships.contained_in
         target: nodejs
@@ -51,8 +50,6 @@ node_templates:
       - type: cloudify.relationships.contained_in
         target: vm_web
     interfaces:
-      cloudify.interfaces.lifecycle:
-        create: scripts/install-nodejs.sh
       my_test_interface:
-        kkill:
-          implementation: my_test_plugin.plugin.tasks.kkill
+        print_hosts:
+          implementation: my_test_plugin.plugin.tasks.print_hosts

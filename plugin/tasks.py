@@ -16,3 +16,11 @@ def kkill(**kwargs):
 		os.system('kill -9 {0}'.format(pid))
 	except IOError:
 		ctx.logger.info('node server is not running!')
+
+
+def print_hosts(**kwargs):
+	try:
+		ctx.logger.info('cat /etc/hosts to /tmp dir')
+		os.system('cat /etc/hosts > /tmp/hosts_outputs')
+	except IOError:
+		ctx.logger.info('some error')
