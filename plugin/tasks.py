@@ -19,8 +19,6 @@ def kkill(**kwargs):
 
 @operation
 def print_hosts(**kwargs):
-	try:
-		ctx.logger.info('cat /etc/hosts to /tmp dir')
-		os.system('cat /etc/hosts > /tmp/hosts_outputs')
-	except IOError:
-		ctx.logger.info('some error')
+	Path = os.getenv("HOME")
+	with open(os.path.join(Path, 'test.file'),'w') as f:
+		f.write('This is Test Plugin')
