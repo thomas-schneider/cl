@@ -35,3 +35,6 @@ node_templates:
         print_hosts:
           implementation: my_test_plugin.plugin.tasks.print_hosts
           executor: central_deployment_agent
+
+  web_floating_ip:
+    type: cloudify.openstack.nodes.FloatingIP
