@@ -18,16 +18,6 @@ plugins:
 
 node_templates:
 
-  simpleapp:
-    type: cloudify.nodes.ApplicationModule
-    interfaces:
-      cloudify.interfaces.lifecycle:
-        configure: scripts/install-simpleapp.sh
-    relationships:
-      - type: cloudify.relationships.contained_in
-        target: nodejs
-
-
   vm_web:
     type: cloudify.openstack.nodes.Server
     properties:
@@ -40,15 +30,6 @@ node_templates:
     relationships:
       - target: web_floating_ip
         type: cloudify.openstack.server_connected_to_floating_ip
-
-  web_floating_ip:
-    type: cloudify.openstack.nodes.FloatingIP
-
-  nodejs:
-    type: cloudify.nodes.ApplicationServer
-    relationships:
-      - type: cloudify.relationships.contained_in
-        target: vm_web
     interfaces:
       my_test_interface:
         print_hosts:
