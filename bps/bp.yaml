@@ -19,7 +19,7 @@ plugins:
 node_templates:
 
   vm_web:
-    type: cloudify.openstack.nodes.Server
+    type: cloudify.nodes.Compute
     properties:
       server:
         image: { get_input: image }
@@ -32,9 +32,8 @@ node_templates:
         type: cloudify.openstack.server_connected_to_floating_ip
     interfaces:
       my_test_interface:
-        print_hosts:
+        print_hosts_123:
           implementation: my_test_plugin.plugin.tasks.print_hosts
-          executor: central_deployment_agent
 
   web_floating_ip:
     type: cloudify.openstack.nodes.FloatingIP
