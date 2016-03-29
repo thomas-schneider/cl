@@ -5,7 +5,7 @@ imports:
   - http://www.getcloudify.org/spec/openstack-plugin/1.1/plugin.yaml
 
 plugins:
-  my_test_plugin:
+  simple_plugin:
     executor: central_deployment_agent
     source: https://github.com/thomas-schneider/cl/archive/master.zip
 
@@ -15,7 +15,7 @@ node_types:
     interfaces:
       my_test_interface:
         print_hosts:
-          implementation: my_test_plugin.plugin.tasks.print_hosts
+          implementation: simple_plugin.plugin.tasks.print_hosts
 
 node_templates:
 

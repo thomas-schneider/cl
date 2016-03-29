@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     
-    name = 'my-test-plugin',
+    name = 'simple-plugin',
     version = '1.0',
     author = 'victor',
     packages = ['plugin'],
