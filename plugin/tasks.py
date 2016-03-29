@@ -7,6 +7,7 @@ import os
 def set_hello(**kwargs):
     # setting node instance runtime property
     ctx.instance.runtime_properties['hello'] = 'world'
+
 @operation
 def kkill(**kwargs):
 	try:

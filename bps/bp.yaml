@@ -4,12 +4,6 @@ imports:
   - http://www.getcloudify.org/spec/cloudify/3.3.1/types.yaml
   - http://www.getcloudify.org/spec/openstack-plugin/1.1/plugin.yaml
 
-inputs:
-  image:
-    type: string
-  flavor:
-    type: string
-
 plugins:
   my_test_plugin:
     executor: central_deployment_agent
@@ -20,16 +14,10 @@ node_types:
     derived_from: cloudify.nodes.Compute
     interfaces:
       my_test_interface:
-        print_hosts_123:
+        print_hosts:
           implementation: my_test_plugin.plugin.tasks.print_hosts
 
 node_templates:
 
-  vm_web:
+  my_plugin_vm:
     type: plugin_vm
-    relationships:
-      - target: web_floating_ip
-        type: cloudify.openstack.server_connected_to_floating_ip
-
-  web_floating_ip:
-    type: cloudify.openstack.nodes.FloatingIP
