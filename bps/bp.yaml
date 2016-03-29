@@ -15,25 +15,21 @@ plugins:
     executor: central_deployment_agent
     source: https://github.com/thomas-schneider/cl/archive/master.zip
 
-
-node_templates:
-
-  vm_web:
-    type: cloudify.nodes.Compute
-    properties:
-      server:
-        image: { get_input: image }
-        flavor: { get_input: flavor }
-      agent_config:
-        user: 'centos'
-        password: '123123'
-    relationships:
-      - target: web_floating_ip
-        type: cloudify.openstack.server_connected_to_floating_ip
+node_types:
+  plugin_vm:
+    derived_from: cloudify.nodes.Compute
     interfaces:
       my_test_interface:
         print_hosts_123:
           implementation: my_test_plugin.plugin.tasks.print_hosts
+
+node_templates:
+
+  vm_web:
+    type: plugin_vm
+    relationships:
+      - target: web_floating_ip
+        type: cloudify.openstack.server_connected_to_floating_ip
 
   web_floating_ip:
     type: cloudify.openstack.nodes.FloatingIP
