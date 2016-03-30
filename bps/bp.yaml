@@ -4,20 +4,41 @@ imports:
   - http://www.getcloudify.org/spec/cloudify/3.3.1/types.yaml
   - http://www.getcloudify.org/spec/openstack-plugin/1.1/plugin.yaml
 
+inputs:
+  image:
+    type: string
+
+  flavor:
+    type: string
+
 plugins:
   simple_plugin:
     executor: central_deployment_agent
     source: https://github.com/thomas-schneider/cl/archive/master.zip
 
 node_types:
+  plugin_host:
+    derived_from: cloudify.nodes.ApplicationServer
+
+node_templates:
+
   plugin_vm:
-    derived_from: cloudify.nodes.Compute
+    type: cloudify.openstack.nodes.Server
+    properties:
+      server:
+        image: { get_input: image }
+        flavor: { get_input: flavor }
+      ip: { get_input: ip }
+      agent_config:
+        user: 'centos'
+        password: '123123'
+
+  plugin_host:
+    type: plugin_host
+    relationships:
+      - type: cloudify.relationships.contained_in
+        target: plugin_vm
     interfaces:
       my_test_interface:
         print_hosts:
           implementation: simple_plugin.plugin.tasks.print_hosts
-
-node_templates:
-
-  my_plugin_vm:
-    type: plugin_vm
